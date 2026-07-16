@@ -63,6 +63,21 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+.logout-btn {
+  display: block;
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .logout-btn {
+    width: 100%; /* Ajusta o botão para telas menores */
+  }
+}
 button {
   color: inherit;
 }
