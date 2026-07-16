@@ -1,0 +1,41 @@
+# Sistema PAES CABO — versão atualizada
+
+## Arquivos
+- `index.html`: estrutura e telas do sistema.
+- `styles.css`: identidade visual, efeitos 3D e responsividade.
+- `app.js`: configurações, conteúdo, células e lógica.
+
+## Informações já configuradas
+- Culto: domingo, às 18h.
+- Próximo batismo e confirmação: 26/07/2026.
+- Avisos da semana: Mercado Solidário e Células.
+- Google Forms oficial de visitantes.
+- Google Forms oficial de batismo.
+- Localização oficial da PAES CABO no Google Maps.
+- Todas as células e contatos de WhatsApp informados.
+
+## Como testar
+1. Mantenha `index.html`, `styles.css` e `app.js` na mesma pasta.
+2. Abra `index.html` no navegador.
+3. No VS Code, a extensão Live Server pode ser usada para testar como site local.
+
+## Observação sobre armazenamento
+O `localStorage` reconhece a pessoa somente no mesmo navegador e aparelho.
+Ele não funciona como cadastro oficial, autenticação ou banco de dados compartilhado.
+
+
+## Identidade visual adicionada
+A imagem oficial foi tratada para remover somente o fundo preto e foi salva em:
+
+`assets/logo-paes.png`
+
+Ela aparece:
+- na tela inicial;
+- no menu lateral;
+- no destaque principal do dashboard;
+- no assistente PAES;
+- como favicon;
+- como marca-d'água sutil em todas as abas.
+
+Para trocar a marca futuramente, substitua `assets/logo-paes.png` por outro PNG
+transparente mantendo exatamente o mesmo nome.

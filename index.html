@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#18082d" />
+  <meta
+    name="description"
+    content="Sistema PAES CABO — informações sobre cultos, batismos, células e localização."
+  />
+  <title>PAES CABO | Igreja em movimento</title>
+  <link rel="icon" type="image/png" href="assets/logo-paes.png" />
+  <link rel="apple-touch-icon" href="assets/logo-paes.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="noise-layer" aria-hidden="true"></div>
+
+  <noscript>
+    <div class="noscript">
+      Este sistema precisa do JavaScript ativado para funcionar.
+    </div>
+  </noscript>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- =========================================================
+       ONBOARDING
+       ========================================================= -->
+  <main id="onboarding" class="onboarding">
+    <section class="welcome-panel glass-card">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="assets/logo-paes.png" alt="" />
+        </div>
+        <div>
+          <p class="eyebrow">Bem-vindo à</p>
+          <h1>PAES CABO</h1>
+          <p class="brand-subtitle">Uma igreja para pertencer, crescer e servir.</p>
+        </div>
+      </div>
+
+      <div class="welcome-copy">
+        <span class="status-pill">
+          <span class="status-dot"></span>
+          Conexão, cuidado e propósito
+        </span>
+        <h2>Tudo o que você precisa saber, em um só lugar.</h2>
+        <p>
+          Consulte cultos, encontre uma célula, conheça o próximo batismo e
+          mantenha-se conectado com a comunidade.
+        </p>
+      </div>
+
+      <div class="welcome-highlights" aria-label="Recursos do sistema">
+        <div>
+          <strong>24h</strong>
+          <span>Informações disponíveis</span>
+        </div>
+        <div>
+          <strong>1 clique</strong>
+          <span>Contato com uma célula</span>
+        </div>
+        <div>
+          <strong>100%</strong>
+          <span>Adaptado ao celular</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz-panel glass-card">
+      <div class="quiz-progress" aria-hidden="true">
+        <span class="is-active"></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Etapa 1 -->
+      <div id="step-role" class="quiz-step is-active">
+        <p class="eyebrow">Antes de começar</p>
+        <h2>Você já é membro da PAES CABO?</h2>
+        <p class="muted">
+          Sua resposta personaliza a experiência. Não usamos login ou senha.
+        </p>
+
+        <div class="choice-grid">
+          <button class="choice-card" type="button" data-role-choice="member">
+            <span class="choice-icon">✦</span>
+            <span>
+              <strong>Sim, sou membro</strong>
+              <small>Acessar minha área personalizada</small>
+            </span>
+            <span class="choice-arrow">→</span>
+          </button>
+
+          <button class="choice-card" type="button" data-role-choice="visitor">
+            <span class="choice-icon">♡</span>
+            <span>
+              <strong>Não, estou chegando agora</strong>
+              <small>Quero conhecer melhor a igreja</small>
+            </span>
+            <span class="choice-arrow">→</span>
+          </button>
+        </div>
+
+        <div class="privacy-note">
+          <span>🔒</span>
+          <p>
+            Os dados de reconhecimento ficam somente neste navegador.
+            <strong>Não substituem um cadastro administrativo oficial.</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- Etapa 2A: membro -->
+      <div id="step-member" class="quiz-step">
+        <button class="back-button" type="button" data-back-to="step-role">
+          ← Voltar
+        </button>
+
+        <p class="eyebrow">Área do membro</p>
+        <h2>Como podemos chamar você?</h2>
+        <p class="muted">
+          Esses dados serão usados apenas para personalizar este aparelho.
+        </p>
+
+        <form id="member-form" class="form-stack" autocomplete="on">
+          <label>
+            <span>Nome completo</span>
+            <input
+              id="member-name"
+              name="name"
+              type="text"
+              placeholder="Ex.: Maria Silva"
+              autocomplete="name"
+              required
+            />
+          </label>
+
+          <label>
+            <span>WhatsApp</span>
+            <input
+              id="member-phone"
+              name="phone"
+              type="tel"
+              inputmode="tel"
+              placeholder="(81) 99999-9999"
+              autocomplete="tel"
+              required
+            />
+          </label>
+
+          <label>
+            <span>Data de nascimento <small>(opcional)</small></span>
+            <input
+              id="member-birth"
+              name="birthDate"
+              type="date"
+              autocomplete="bday"
+            />
+          </label>
+
+          <button class="primary-button" type="submit">
+            Entrar no sistema
+            <span>→</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Etapa 2B: visitante -->
+      <div id="step-visitor" class="quiz-step">
+        <button class="back-button" type="button" data-back-to="step-role">
+          ← Voltar
+        </button>
+
+        <div class="visitor-welcome-icon" aria-hidden="true">🤍</div>
+        <p class="eyebrow">Que alegria ter você aqui</p>
+        <h2>Você é muito bem-vindo(a) à PAES CABO.</h2>
+        <p class="muted">
+          Queremos conhecer você e ajudar na sua integração à igreja.
+        </p>
+
+        <label class="standalone-field">
+          <span>Como podemos chamar você?</span>
+          <input
+            id="visitor-name"
+            type="text"
+            placeholder="Digite seu primeiro nome"
+            autocomplete="given-name"
+          />
+        </label>
+
+        <button id="open-visitor-form" class="primary-button" type="button">
+          Continuar meu cadastro
+          <span>→</span>
+        </button>
+
+        <button id="visitor-already-registered" class="text-button" type="button">
+          Já fiz meu cadastro neste aparelho
+        </button>
+      </div>
+
+      <!-- Etapa 3: Google Form visitante -->
+      <div id="step-visitor-form" class="quiz-step quiz-step-wide">
+        <button class="back-button" type="button" data-back-to="step-visitor">
+          ← Voltar
+        </button>
+
+        <p class="eyebrow">Cadastro de visitante</p>
+        <h2>Conte um pouco sobre você</h2>
+        <p class="muted">
+          Preencha o formulário abaixo. Ao terminar, clique em “Já preenchi”.
+        </p>
+
+        <div id="visitor-form-placeholder" class="form-placeholder">
+          <div class="placeholder-icon">↗</div>
+          <strong>Configure o Google Forms de visitante</strong>
+          <p>
+            Substitua <code>CONFIG.forms.visitor</code> no arquivo
+            <code>app.js</code> pela URL de incorporação do formulário.
+          </p>
+        </div>
+
+        <iframe
+          id="visitor-form-frame"
+          class="form-frame"
+          title="Cadastro de visitante PAES CABO"
+          loading="lazy"
+        ></iframe>
+
+        <button id="visitor-form-complete" class="primary-button" type="button">
+          Já preenchi — acessar o sistema
+          <span>✓</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       DASHBOARD
+       ========================================================= -->
+  <div id="dashboard" class="dashboard-shell" hidden>
+    <aside class="sidebar glass-card">
+      <div class="sidebar-brand">
+        <div class="brand-mark brand-mark-small" aria-hidden="true">
+          <img src="assets/logo-paes.png" alt="" />
+        </div>
+        <div>
+          <strong>PAES CABO</strong>
+          <small>Igreja em movimento</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <button class="nav-item is-active" type="button" data-tab="culto">
+          <span>⌂</span>
+          Culto
+        </button>
+        <button class="nav-item" type="button" data-tab="batismos">
+          <span>♢</span>
+          Batismos
+        </button>
+        <button class="nav-item" type="button" data-tab="celulas">
+          <span>◎</span>
+          Células
+        </button>
+        <button class="nav-item" type="button" data-tab="localizacao">
+          <span>⌖</span>
+          Localização
+        </button>
+        <button class="nav-item" type="button" data-tab="quem-somos">
+          <span>✦</span>
+          Quem somos
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-verse">
+          <span>Versículo do dia</span>
+          <p id="sidebar-verse-text"></p>
+          <small id="sidebar-verse-reference"></small>
+        </div>
+
+        <button id="switch-profile" class="ghost-button" type="button">
+          Trocar perfil
+        </button>
+      </div>
+    </aside>
+
+    <section class="dashboard-main">
+      <header class="dashboard-header">
+        <div>
+          <p id="current-date" class="eyebrow"></p>
+          <h1 id="greeting">Olá!</h1>
+          <p id="profile-subtitle" class="muted"></p>
+        </div>
+
+        <div class="header-actions">
+          <button
+            id="open-chat"
+            class="icon-button"
+            type="button"
+            aria-label="Abrir assistente PAES"
+            title="Assistente PAES"
+          >
+            ✦
+          </button>
+
+          <div class="profile-chip">
+            <div id="profile-initial" class="profile-avatar">P</div>
+            <div>
+              <strong id="profile-name">Visitante</strong>
+              <small id="profile-type">Perfil</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div id="birthday-banner" class="birthday-banner" hidden>
+        <span class="birthday-confetti">🎉</span>
+        <div>
+          <strong>Feliz aniversário!</strong>
+          <p>Que este novo ciclo seja cheio de fé, propósito e alegria.</p>
+        </div>
+      </div>
+
+      <div class="hero-dashboard-card">
+        <div class="hero-dashboard-copy">
+          <span id="service-status" class="status-pill status-pill-light">
+            Próximo encontro
+          </span>
+          <h2 id="service-countdown">Preparando o próximo culto...</h2>
+          <p id="service-summary"></p>
+
+          <div class="hero-buttons">
+            <button class="light-button" type="button" data-tab-jump="culto">
+              Ver detalhes do culto
+            </button>
+            <button class="outline-light-button" type="button" data-tab-jump="localizacao">
+              Como chegar
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-orbit" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="hero-symbol">
+            <img src="assets/logo-paes.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <main class="tab-container">
+        <!-- TAB CULTO -->
+        <section id="tab-culto" class="tab-panel is-active">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Comunhão e palavra</p>
+              <h2>Próximo culto</h2>
+            </div>
+            <span id="culto-date-badge" class="date-badge"></span>
+          </div>
+
+          <div class="dashboard-grid dashboard-grid-main">
+            <article class="content-card service-card">
+              <div class="card-icon">✦</div>
+              <div>
+                <span class="card-kicker">Celebração</span>
+                <h3 id="culto-theme">Culto de Celebração</h3>
+                <div class="detail-list">
+                  <p><span>Data</span><strong id="culto-date"></strong></p>
+                  <p><span>Horário</span><strong id="culto-time"></strong></p>
+                  <p><span>Pregador(a)</span><strong id="culto-preacher"></strong></p>
+                </div>
+              </div>
+
+              <button
+                id="confirm-attendance"
+                class="primary-button compact-button"
+                type="button"
+              >
+                Confirmar presença
+                <span>✓</span>
+              </button>
+              <p id="attendance-summary" class="mini-status"></p>
+            </article>
+
+            <article class="content-card notices-card">
+              <div class="card-heading-inline">
+                <div>
+                  <span class="card-kicker">Fique por dentro</span>
+                  <h3>Últimos avisos</h3>
+                </div>
+                <span class="pulse-badge">Atualizado</span>
+              </div>
+              <div id="notices-list" class="notices-list"></div>
+            </article>
+          </div>
+
+          <div class="section-heading section-heading-spaced">
+            <div>
+              <p class="eyebrow">Sua próxima conexão</p>
+              <h2>Ações rápidas</h2>
+            </div>
+          </div>
+
+          <div class="quick-actions-grid">
+            <button class="quick-action-card" type="button" data-tab-jump="celulas">
+              <span class="quick-icon">◎</span>
+              <span>
+                <strong>Encontrar uma célula</strong>
+                <small>Conecte-se perto de você</small>
+              </span>
+              <span>→</span>
+            </button>
+
+            <button class="quick-action-card" type="button" data-form-action="prayer">
+              <span class="quick-icon">♡</span>
+              <span>
+                <strong>Pedido de oração</strong>
+                <small>Compartilhe com nossa equipe</small>
+              </span>
+              <span>→</span>
+            </button>
+
+            <button class="quick-action-card" type="button" data-form-action="serve">
+              <span class="quick-icon">✦</span>
+              <span>
+                <strong>Quero servir</strong>
+                <small>Descubra onde você pode contribuir</small>
+              </span>
+              <span>→</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- TAB BATISMOS -->
+        <section id="tab-batismos" class="tab-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Um novo começo</p>
+              <h2>Batismos</h2>
+            </div>
+          </div>
+
+          <div class="baptism-hero content-card">
+            <div class="baptism-copy">
+              <span class="status-pill">Próxima turma</span>
+              <h3 id="baptism-title">Batismo PAES CABO</h3>
+              <p>
+                O batismo é uma declaração pública de fé e um passo importante
+                na caminhada cristã.
+              </p>
+
+              <div class="baptism-info-grid">
+                <div>
+                  <span>Data</span>
+                  <strong id="baptism-date"></strong>
+                </div>
+                <div>
+                  <span>Prazo</span>
+                  <strong id="baptism-deadline"></strong>
+                </div>
+                <div>
+                  <span>Requisito</span>
+                  <strong id="baptism-requirements"></strong>
+                </div>
+              </div>
+
+              <button id="baptism-action" class="primary-button" type="button">
+                Quero me inscrever
+                <span>→</span>
+              </button>
+
+              <div id="baptism-success" class="success-message" hidden>
+                <span>✓</span>
+                <p>Você já marcou sua inscrição neste aparelho.</p>
+              </div>
+            </div>
+
+            <div class="baptism-visual" aria-hidden="true">
+              <div class="water-ring water-ring-one"></div>
+              <div class="water-ring water-ring-two"></div>
+              <div class="water-symbol">♢</div>
+            </div>
+          </div>
+
+          <div class="info-steps">
+            <article class="content-card">
+              <span>01</span>
+              <h3>Inscrição</h3>
+              <p>Preencha seus dados no formulário oficial da igreja.</p>
+            </article>
+            <article class="content-card">
+              <span>02</span>
+              <h3>Preparação</h3>
+              <p>Participe das orientações e tire suas dúvidas com a liderança.</p>
+            </article>
+            <article class="content-card">
+              <span>03</span>
+              <h3>Celebração</h3>
+              <p>Compartilhe publicamente sua decisão de seguir a Cristo.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- TAB CÉLULAS -->
+        <section id="tab-celulas" class="tab-panel">
+          <div class="section-heading section-heading-cells">
+            <div>
+              <p class="eyebrow">Igreja também acontece nas casas</p>
+              <h2>Encontre uma célula</h2>
+              <p class="muted">
+                Busque por bairro e fale diretamente com a liderança pelo WhatsApp.
+              </p>
+            </div>
+
+            <label class="search-box">
+              <span>⌕</span>
+              <input
+                id="cell-search"
+                type="search"
+                placeholder="Buscar por bairro ou líder..."
+                autocomplete="off"
+              />
+            </label>
+          </div>
+
+          <div id="cells-result-count" class="result-count"></div>
+          <div id="cells-grid" class="cells-grid"></div>
+
+          <div id="cells-empty" class="empty-state" hidden>
+            <span>⌕</span>
+            <h3>Nenhuma célula encontrada</h3>
+            <p>Tente pesquisar por outro bairro ou nome de líder.</p>
+          </div>
+        </section>
+
+        <!-- TAB LOCALIZAÇÃO -->
+        <section id="tab-localizacao" class="tab-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Venha nos visitar</p>
+              <h2>Localização</h2>
+            </div>
+          </div>
+
+          <div class="location-grid">
+            <article class="content-card location-card">
+              <div class="card-icon">⌖</div>
+              <span class="card-kicker">Endereço oficial</span>
+              <h3 id="church-address"></h3>
+              <p id="church-reference" class="muted"></p>
+
+              <div class="detail-list location-details">
+                <p>
+                  <span>Secretaria</span>
+                  <strong id="office-hours"></strong>
+                </p>
+                <p>
+                  <span>Contato</span>
+                  <strong id="church-phone"></strong>
+                </p>
+              </div>
+
+              <a
+                id="maps-link"
+                class="primary-button link-button"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir rota no Google Maps
+                <span>↗</span>
+              </a>
+            </article>
+
+            <div class="map-card">
+              <iframe
+                id="map-frame"
+                title="Mapa da PAES CABO"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB QUEM SOMOS -->
+        <section id="tab-quem-somos" class="tab-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Nossa identidade</p>
+              <h2>Quem somos</h2>
+            </div>
+          </div>
+
+          <div class="about-intro content-card">
+            <div>
+              <span class="status-pill">PAES CABO</span>
+              <h3>Uma comunidade centrada em Cristo, pessoas e propósito.</h3>
+            </div>
+            <p id="about-description"></p>
+          </div>
+
+          <div class="values-grid">
+            <article class="content-card value-card">
+              <span>01</span>
+              <h3>Missão</h3>
+              <p id="mission-text"></p>
+            </article>
+            <article class="content-card value-card">
+              <span>02</span>
+              <h3>Visão</h3>
+              <p id="vision-text"></p>
+            </article>
+            <article class="content-card value-card">
+              <span>03</span>
+              <h3>Valores</h3>
+              <p id="values-text"></p>
+            </article>
+          </div>
+
+          <div class="timeline content-card">
+            <div class="timeline-heading">
+              <span class="card-kicker">Nossa caminhada</span>
+              <h3>Uma igreja que avança em unidade</h3>
+            </div>
+            <div id="timeline-list" class="timeline-list"></div>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <!-- Navegação mobile -->
+    <nav class="mobile-nav glass-card" aria-label="Navegação para celular">
+      <button class="mobile-nav-item is-active" type="button" data-tab="culto">
+        <span>⌂</span>
+        <small>Culto</small>
+      </button>
+      <button class="mobile-nav-item" type="button" data-tab="batismos">
+        <span>♢</span>
+        <small>Batismos</small>
+      </button>
+      <button class="mobile-nav-item" type="button" data-tab="celulas">
+        <span>◎</span>
+        <small>Células</small>
+      </button>
+      <button class="mobile-nav-item" type="button" data-tab="localizacao">
+        <span>⌖</span>
+        <small>Local</small>
+      </button>
+      <button class="mobile-nav-item" type="button" data-tab="quem-somos">
+        <span>✦</span>
+        <small>Sobre</small>
+      </button>
+    </nav>
+  </div>
+
+  <!-- =========================================================
+       MODAL: PERGUNTA SOBRE CÉLULA
+       ========================================================= -->
+  <div id="cell-question-modal" class="modal-backdrop" hidden>
+    <section class="modal-card modal-card-small" role="dialog" aria-modal="true">
+      <button class="modal-close" type="button" data-close-modal="cell-question-modal">
+        ×
+      </button>
+      <div class="modal-icon">◎</div>
+      <p class="eyebrow">Conexão que transforma</p>
+      <h2>Você já está em alguma célula?</h2>
+      <p class="muted">
+        Células são espaços de comunhão, cuidado, crescimento e amizade.
+      </p>
+
+      <div class="modal-actions">
+        <button id="already-in-cell" class="secondary-button" type="button">
+          Sim, já participo
+        </button>
+        <button id="find-cell-now" class="primary-button" type="button">
+          Ainda não — encontrar uma
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- =========================================================
+       MODAL: GOOGLE FORMS
+       ========================================================= -->
+  <div id="form-modal" class="modal-backdrop" hidden>
+    <section class="modal-card form-modal-card" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>
+          <p id="form-modal-eyebrow" class="eyebrow">Formulário</p>
+          <h2 id="form-modal-title">Preencha seus dados</h2>
+        </div>
+        <button class="modal-close modal-close-static" type="button" data-close-modal="form-modal">
+          ×
+        </button>
+      </div>
+
+      <div id="generic-form-placeholder" class="form-placeholder">
+        <div class="placeholder-icon">↗</div>
+        <strong>Formulário ainda não configurado</strong>
+        <p id="generic-form-placeholder-text"></p>
+      </div>
+
+      <iframe
+        id="generic-form-frame"
+        class="form-frame generic-form-frame"
+        title="Formulário PAES CABO"
+        loading="lazy"
+      ></iframe>
+
+      <div class="modal-footer">
+        <p class="muted">Terminou o preenchimento?</p>
+        <button id="generic-form-complete" class="primary-button" type="button">
+          Já preenchi
+          <span>✓</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- =========================================================
+       CHATBOT LOCAL
+       IMPORTANTE: este é um assistente de respostas programadas,
+       não uma IA externa. Uma IA real exigiria API segura/backend.
+       ========================================================= -->
+  <aside id="chat-widget" class="chat-widget" hidden aria-label="Assistente PAES">
+    <div class="chat-header">
+      <div class="chat-avatar">
+        <img src="assets/logo-paes.png" alt="" />
+      </div>
+      <div>
+        <strong>Assistente PAES</strong>
+        <small><span class="status-dot"></span> Respostas rápidas</small>
+      </div>
+      <button id="close-chat" type="button" aria-label="Fechar assistente">×</button>
+    </div>
+
+    <div id="chat-messages" class="chat-messages" aria-live="polite">
+      <div class="chat-bubble bot">
+        Olá! Posso ajudar com culto, batismo, células, localização ou primeira visita.
+      </div>
+    </div>
+
+    <div class="chat-suggestions">
+      <button type="button" data-chat-question="Qual o horário do culto?">
+        Horário do culto
+      </button>
+      <button type="button" data-chat-question="Quero encontrar uma célula">
+        Encontrar célula
+      </button>
+      <button type="button" data-chat-question="Como funciona o batismo?">
+        Batismo
+      </button>
+    </div>
+
+    <form id="chat-form" class="chat-input-row">
+      <input
+        id="chat-input"
+        type="text"
+        placeholder="Digite sua pergunta..."
+        autocomplete="off"
+      />
+      <button type="submit" aria-label="Enviar pergunta">→</button>
+    </form>
+  </aside>
+</body>
+</html>
