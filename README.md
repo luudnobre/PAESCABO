@@ -39,3 +39,13 @@ Ela aparece:
 
 Para trocar a marca futuramente, substitua `assets/logo-paes.png` por outro PNG
 transparente mantendo exatamente o mesmo nome.
+
+
+## Correções desta versão
+- Corrigidos IDs duplicados no bloco do culto e dos avisos.
+- Restaurado o elemento usado pelo JavaScript para o pregador.
+- Mantida a série **Armadilhas**.
+- Versículo automático calculado pelo dia do ano.
+- Versículo visível também no celular.
+- Células carregadas ao iniciar e toda vez que a aba Células é aberta.
+- Arquivos renomeados corretamente para `index.html`, `styles.css` e `app.js`.

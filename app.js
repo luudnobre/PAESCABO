@@ -45,6 +45,7 @@ const CONFIG = {
       minute: 0,
       label: "Culto de Celebração",
       theme: "Culto de Celebração PAES CABO",
+      series: "Armadilhas",
       preacher: "Liderança PAES CABO",
     },
   ],
@@ -418,6 +419,8 @@ function getWhatsAppLink(phone, leaderName, cellName) {
 document.addEventListener("DOMContentLoaded", () => {
   bindEvents();
   populateStaticContent();
+  populateVerse();
+  renderCells();
 
   const savedProfile = getLocalProfile();
 
@@ -467,7 +470,7 @@ function bindEvents() {
   });
 
   $("#confirm-attendance").addEventListener("click", confirmAttendance);
-  $("#cell-search").addEventListener("input", renderCells);
+  $("#cell-search")?.addEventListener("input", renderCells);
 
   $("#baptism-action").addEventListener("click", () => openFormModal("baptism"));
 
@@ -685,7 +688,7 @@ function populateProfile() {
   if (profile.type !== "member") {
     attendanceButton.hidden = true;
     attendanceSummary.textContent =
-      "A confirmação de presença fica disponível para perfis de membros.";
+      "Deus tem muito a ministrar no seu coração! .";
   } else {
     attendanceButton.hidden = false;
   }
@@ -703,11 +706,19 @@ function populateService() {
       ? "É hoje"
       : "Próximo encontro";
 
-  $("#culto-theme").textContent = service.theme;
-  $("#culto-date").textContent = formatServiceDate(service.date);
-  $("#culto-time").textContent = formatTime(service.date);
-  $("#culto-preacher").textContent = service.preacher;
-  $("#culto-date-badge").textContent = formatShortDate(service.date);
+  const cultoTheme = $("#culto-theme");
+  const cultoDate = $("#culto-date");
+  const cultoTime = $("#culto-time");
+  const cultoSeries = $("#culto-series");
+  const cultoPreacher = $("#culto-preacher");
+  const cultoDateBadge = $("#culto-date-badge");
+
+  if (cultoTheme) cultoTheme.textContent = service.theme;
+  if (cultoDate) cultoDate.textContent = formatServiceDate(service.date);
+  if (cultoTime) cultoTime.textContent = formatTime(service.date);
+  if (cultoSeries) cultoSeries.textContent = service.series || "Armadilhas";
+  if (cultoPreacher) cultoPreacher.textContent = service.preacher;
+  if (cultoDateBadge) cultoDateBadge.textContent = formatShortDate(service.date);
 }
 
 function populateNotices() {
@@ -728,9 +739,22 @@ function populateNotices() {
 }
 
 function populateVerse() {
-  const verse = CONFIG.verses[new Date().getDay()];
-  $("#sidebar-verse-text").textContent = `“${verse.text}”`;
-  $("#sidebar-verse-reference").textContent = verse.reference;
+  if (!Array.isArray(CONFIG.verses) || CONFIG.verses.length === 0) return;
+
+  const today = new Date();
+  const startOfYear = new Date(today.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((today - startOfYear) / 86400000);
+  const verse = CONFIG.verses[dayOfYear % CONFIG.verses.length];
+
+  const sidebarText = $("#sidebar-verse-text");
+  const sidebarReference = $("#sidebar-verse-reference");
+  const dashboardText = $("#dashboard-verse-text");
+  const dashboardReference = $("#dashboard-verse-reference");
+
+  if (sidebarText) sidebarText.textContent = `“${verse.text}”`;
+  if (sidebarReference) sidebarReference.textContent = verse.reference;
+  if (dashboardText) dashboardText.textContent = `“${verse.text}”`;
+  if (dashboardReference) dashboardReference.textContent = verse.reference;
 }
 
 function populateBirthday() {
@@ -776,6 +800,10 @@ function activateTab(tabName) {
   $$("[data-tab]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.tab === tabName);
   });
+
+  if (tabName === "celulas") {
+    renderCells();
+  }
 
   if (window.innerWidth <= 760) {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1107,3 +1135,9 @@ function resetProfile() {
   sessionStorage.removeItem("paes_temp_visitor_name");
   window.location.reload();
 }
+
+
+window.addEventListener("pageshow", () => {
+  populateVerse();
+  renderCells();
+});
