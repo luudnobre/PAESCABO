@@ -63,14 +63,20 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-.logout-btn {
+.profile-btn {
   display: block;
   padding: 10px;
-  background-color: #f44336;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .profile-btn {
+    width: 100%; /* Ajusta o botão para telas menores */
+  }
 }
 
 @media (max-width: 768px) {

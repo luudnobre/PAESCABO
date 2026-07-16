@@ -524,33 +524,6 @@ function bindEvents() {
 
     askChat(question);
     input.value = "";
-  
-  });
-  document.addEventListener("DOMContentLoaded", () => {
-    const logoutButton = document.getElementById("logout-button");
-  
-    if (logoutButton) {
-      logoutButton.addEventListener("click", () => {
-        // Função de logout
-        logoutUser();
-      });
-    }
-  
-    function logoutUser() {
-      // Exemplo de lógica de logout
-      fetch("/logout", { method: "POST" })
-        .then((response) => {
-          if (response.ok) {
-            window.location.href = "/login"; // Redireciona para a página de login
-          } else {
-            alert("Erro ao sair da conta. Tente novamente.");
-          }
-        })
-        .catch((error) => {
-          console.error("Erro ao sair:", error);
-          alert("Erro ao sair da conta. Tente novamente.");
-        });
-    }
   });
 
   $$("[data-chat-question]").forEach((button) => {
@@ -715,12 +688,23 @@ function populateProfile() {
   if (profile.type !== "member") {
     attendanceButton.hidden = true;
     attendanceSummary.textContent =
-      "Deus tem muito a ministrar no seu coração! .";
+      "Deus tem muito a ministrar no seu coração!.";
   } else {
     attendanceButton.hidden = false;
   }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const switchProfileButton = document.getElementById("switch-profile");
+
+  if (switchProfileButton) {
+    switchProfileButton.addEventListener("click", () => {
+      // Lógica para trocar perfil
+      alert("Trocar perfil clicado!");
+      // Adicione aqui a lógica real para trocar de perfil
+    });
+  }
+});
 function populateService() {
   const service = state.nextService || getNextService();
   state.nextService = service;
