@@ -292,10 +292,6 @@
           <p id="sidebar-verse-text"></p>
           <small id="sidebar-verse-reference"></small>
         </div>
-
-        <button id="switch-profile" class="ghost-button" type="button">
-          Trocar perfil
-        </button>
       </div>
     </aside>
 
@@ -309,14 +305,23 @@
 
         <div class="header-actions">
           <button
+            id="switch-profile"
+            class="profile-switch-button"
+            type="button"
+            aria-label="Trocar perfil"
+            title="Trocar perfil"
+          >
+            <span class="profile-switch-icon" aria-hidden="true">↻</span>
+            <span class="profile-switch-label">Trocar perfil</span>
+          </button>
+
+          <button
             id="open-chat"
             class="icon-button"
             type="button"
             aria-label="Abrir assistente PAES"
             title="Assistente PAES"
           >
-          
-          <button id="switch-profile" class="profile-btn">Trocar Perfil</button>s
             ✦
           </button>
 

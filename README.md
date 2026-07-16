@@ -49,3 +49,11 @@ transparente mantendo exatamente o mesmo nome.
 - Versículo visível também no celular.
 - Células carregadas ao iniciar e toda vez que a aba Células é aberta.
 - Arquivos renomeados corretamente para `index.html`, `styles.css` e `app.js`.
+
+
+## Ajuste do botão Trocar perfil
+- O botão antigo foi removido da barra lateral.
+- Agora existe apenas um botão `Trocar perfil`, no topo do dashboard.
+- No computador, ele aparece com ícone e texto.
+- No celular, ele se transforma em um botão compacto com ícone.
+- A função continua usando o mesmo `id="switch-profile"` e a mesma lógica do JavaScript.
